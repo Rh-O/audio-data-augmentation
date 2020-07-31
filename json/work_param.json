@@ -1,0 +1,60 @@
+{
+	"README" : [
+		"input_path : input list or audio file, if path have audio ext, path is judged as audio file",
+		"output_path : output list or audio file, same with input_path",
+		"work_list : list of augmentation work, executed in order",
+		"todo : what to do",
+		"db : target dB ",
+		"rand_opt : when opt have multiple elements, 1 : use n-th element randomly, 0 : use 1st element",
+		"snr : add noise to audio, adjust noise amplitude to audio",
+		"align : work output or noise position, head : initial, tail : last, mid : central, rand : random position, offset : use offset value",
+		"offset : (sec) move initial sample of noise, audio, offset > 0 : move right, offset < 0 : move left",
+		"circular : when audio is shifted, 1 : keep samples over range, 0 : discard samples",
+		"extend : when audio is shifted to right with circular 0, 1 : extend audio length (0 padding),  0 : discard samples",
+		"length : (sec) adjust length of audio at last of work"
+	],
+
+
+	"input_path" : "/DataHDD/jsrho/Workspace/Utility__audio_augmentation/audio-data-augmentation/wav/list",
+	"output_path" : "/DataHDD/jsrho/Workspace/Utility__audio_augmentation/audio-data-augmentation/output",
+
+	"rand_opt" : 1,
+
+	"work_list": [
+		{
+			"todo" : "normalize",
+			"db" : [45, 55, 65, 75]
+		},
+		{
+			"todo" : "add_noise",
+			"snr": [0, 10, 20],
+			"align" : ["rand"],
+			"noise_path" : ""
+		},
+		{
+			"todo" : "shift",
+			"circular" : 0,
+			"extend" : 0,
+			"offset" : [-0.1, 0.1],
+			"rand" : 1
+ 		},
+		{
+			"todo" : "stretch",
+			"align" : ["mid", "head", "tail"],
+			"extend" : 1
+		},
+		{
+			"todo" : "pitch",
+			"pitch" : 1
+		},
+		{
+			"todo" : "convolution",
+			"rir_path" : ""
+		},
+		{
+			"todo" : "cut",
+			"align" : ["mid", "head", "tail", "offset", "rand"],
+			"length" : [1.5]
+		}
+	]
+}
